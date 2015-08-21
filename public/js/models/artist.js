@@ -3,10 +3,11 @@ var Artist = function(info){
   this.photoUrl = info.photoUrl;
   this.nationality = info.nationality;
   this.id = info.id;
+  this.urlRoot = "/artists/";
 };
 
 Artist.fetch = function(){
-  var request = $.getJSON("http://localhost:3000/artists")
+  var request = $.getJSON(this.urlRoot)
   .then(function(response) {
     var artists = [];
     for(var i = 0; i < response.length; i++){
@@ -22,7 +23,7 @@ Artist.fetch = function(){
 
 Artist.prototype = {
   fetchSongs: function(){
-    var url = "http://localhost:3000/artists/" + this.id + "/songs";
+    var url = this.urlRoot + this.id + "/songs";
     var request = $.getJSON(url)
     .then(function(response){
       var songs = [];
@@ -39,7 +40,7 @@ Artist.prototype = {
   update: function(artistData) {
     var self = this;
 
-    var url = "http://localhost:3000/artists/" + this.id;
+    var url = this.urlRoot  + this.id;
     var request = $.ajax({
       url: url,
       method: "patch",
@@ -51,7 +52,7 @@ Artist.prototype = {
     return request;
   },
   destroy: function() {
-    var url = "http://localhost:3000/artists/" + this.id;
+    var url = this.urlRoot + this.id;
     var request = $.ajax( {url: url, method: "delete"} );
     return request;
   },
