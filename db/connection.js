@@ -12,7 +12,6 @@ if (process.env.DATABASE_URL) {
   sequelize = new Sequelize("postgres:///tunr_db");
 }
 
-
 var Artist = sequelize.import("../models/artist");
 var Song = sequelize.import("../models/song");
 
